@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <Folder Include="Interface\" />
-    <Folder Include="Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ScheduleExams.Domain\ScheduleExams.Domain.csproj" />
   </ItemGroup>
 
 </Project>
