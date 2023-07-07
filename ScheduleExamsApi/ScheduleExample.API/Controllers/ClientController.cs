@@ -7,30 +7,34 @@ namespace ScheduleExams.API.Controllers
     [Route("[controller]")]
     public class ClientController : Controller
     {
-        private readonly IClientBusiness _authBusiness;
-        public ClientController(IClientBusiness authBusiness)
+        private readonly IClientBusiness _clientBusiness;
+        public ClientController(IClientBusiness clientBusiness)
         {
-            _authBusiness = authBusiness;
+            _clientBusiness = clientBusiness;
         }
         [HttpPost("Add")]
         public async Task<IActionResult> AddAsync()
         {
-            return Ok();
+            var result = await _clientBusiness.AddAsync(null);
+            return Ok(result);
         }
         [HttpPost("Update")]
         public async Task<IActionResult> UpdateAsync()
         {
-            return Ok();
+            var result = await _clientBusiness.UpdateAsync(null);
+            return Ok(result);
         }
         [HttpPost("Delete")]
         public async Task<IActionResult> DeleteAsync()
         {
-            return Ok();
+            var result = await _clientBusiness.DeleteAsync(default);
+            return Ok(result);
         }
         [HttpGet("{cpf}")]
         public async Task<IActionResult> GetByCpfAsync(string cpf)
         {
-            return Ok();
+            var result = await _clientBusiness.GetByCpfAsync(default);
+            return Ok(result);
         }
     }
 }

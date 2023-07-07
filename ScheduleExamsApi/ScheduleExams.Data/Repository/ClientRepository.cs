@@ -1,38 +1,47 @@
-﻿using ScheduleExams.Data.Interface;
+﻿using ScheduleExams.Data.Context;
+using ScheduleExams.Data.Interface;
 using ScheduleExams.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScheduleExams.Data.Repository
 {
     public class ClientRepository : IClientRepository
     {
-        public Task<Client> AddAsync(Client client)
+        private readonly ScheduleExamsContext _context;
+        public async Task<Client> AddAsync(Client client)
         {
-            throw new NotImplementedException();
+            await _context.AddAsync(client);
+            await _context.SaveChangesAsync();
+            return client;
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var client = _context.Clients.FirstOrDefault(x => x.Id == id);
+            _context.Clients.Remove(client);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<List<Client>> GetAllAsync()
+        public async Task<List<Client>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return _context.Clients.ToList();
         }
 
-        public Task<Client> GetByCpfAsync(string cpf)
+        public async Task<Client> GetByCpfAsync(string cpf)
         {
-            throw new NotImplementedException();
+            return _context.Clients.FirstOrDefault(x => x.Cpf == cpf);
         }
 
-        public Task<Client> UpdateAsync(Client client)
+        public async Task<Client> UpdateAsync(Client client)
         {
-            throw new NotImplementedException();
+            var clientDb = _context.Clients.FirstOrDefault(x => x.Id == client.Id);
+            if (clientDb == null)
+            {
+                clientDb.Cpf = client.Cpf;
+                clientDb.BirthDate = client.BirthDate;
+                clientDb.Name = client.Name;
+                await _context.SaveChangesAsync();
+            }
+            return clientDb;
         }
     }
 }

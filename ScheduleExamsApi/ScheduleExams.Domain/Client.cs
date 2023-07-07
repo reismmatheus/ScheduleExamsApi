@@ -9,6 +9,7 @@ namespace ScheduleExams.Domain
 {
     public class Client : Entity
     {
+        public string Name { get; set; }
         public string Cpf { get; set; }
         public DateTime BirthDate { get; set; }
     }
